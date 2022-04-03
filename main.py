@@ -2,6 +2,7 @@ import itertools
 from tqdm import tqdm
 from scipy.special import comb
 import random
+import time
 
 
 def getSubSet(original_list):
@@ -18,7 +19,7 @@ def getSubSet(original_list):
 
 
 def whetherCanFindTwoSubSetWhoseSumAreEqual(subsets: list):
-    return len(set(list(map(lambda subset: sum(subset), subsets)))) != len(subsets)
+    return len(set(map(lambda subset: sum(subset), subsets))) != len(subsets)
 
 
 def whetherThisNCanMeetTheRequirements(n):
@@ -53,5 +54,6 @@ if __name__ == '__main__':
     # whetherThisNCanMeetTheRequirements(10)
     # print(whetherCanFindTwoSubSetWhoseSumAreEqual(getSubSet([88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98])))
     for n_to_be_verified in range(1, 11):
-        print(f"-----------\n正在计算{n_to_be_verified}")
+        print(f"\n\n-----------\n\n正在计算{n_to_be_verified}")
+        time.sleep(0.1)
         whetherThisNCanMeetTheRequirements(n_to_be_verified)
