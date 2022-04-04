@@ -23,8 +23,8 @@ def whetherCanFindTwoSubSetWhoseSumAreEqual(subsets: list):
 
 
 def whetherThisNCanMeetTheRequirements(n):
-    flag = True
     comb_num = comb(90, n)
+    defeat_example = None
     print(f"n取{n}时, 共有{comb_num}种组合方式")
 
     # n<7 的时候，数据量还不算太大，且经过验证，对于 n=7 时，在第 637108 个元素时就会出现不满足条件的情况
@@ -32,7 +32,7 @@ def whetherThisNCanMeetTheRequirements(n):
         for num_list in tqdm(itertools.permutations(list(range(10, 100)), n), total=comb_num):
             subsets_of_num_list = getSubSet(num_list)
             if not whetherCanFindTwoSubSetWhoseSumAreEqual(subsets_of_num_list):
-                flag = False
+                defeat_example = num_list
                 break
     # n > 7 时，随机1000000次，若均满足条件，算为满足条件
     else:
@@ -43,11 +43,13 @@ def whetherThisNCanMeetTheRequirements(n):
                     original_numbers.append(new_number)
             subsets_of_num_list = getSubSet(original_numbers)
             if not whetherCanFindTwoSubSetWhoseSumAreEqual(subsets_of_num_list):
-                flag = False
+                defeat_example = original_numbers
                 break
-
-    print(f"n取{n}时", "全部都可以满足条件" if flag else "不全满足条件")
-    return flag
+    if defeat_example:
+        print("当前抽取到的", defeat_example, "无法找到和相等的不相交子集")
+    else:
+        print(f"n取{n}时", "全部都可以满足条件")
+    return not bool(defeat_example)
 
 
 if __name__ == '__main__':
